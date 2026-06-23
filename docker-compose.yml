@@ -1,0 +1,23 @@
+# Local PostgreSQL for HomeLedger — Postgres only.
+# The Next.js app runs on the host (npm run dev) and connects to this container.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: homeledger-db
+    environment:
+      POSTGRES_USER: homeledger
+      POSTGRES_PASSWORD: homeledger_password
+      POSTGRES_DB: homeledger
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U homeledger -d homeledger"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:

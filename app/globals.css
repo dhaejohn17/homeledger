@@ -1,0 +1,149 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Dark mode is driven by the `class` next-themes sets on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * HomeLedger — "ledger paper" design system.
+ * Semantic tokens live as CSS variables so dark mode is a single swap;
+ * Tailwind utilities (bg-surface, text-ink, border-line ...) map to them
+ * via @theme inline below.
+ */
+:root {
+  --paper: #f4f1ea;        /* warm bone — app background */
+  --surface: #fbfaf6;      /* cards */
+  --surface-2: #ece7dc;    /* insets, table headers */
+  --line: #e0d9cb;         /* hairlines */
+  --line-strong: #cabfad;
+  --ink: #211e18;          /* primary text */
+  --ink-muted: #7a7164;    /* secondary text */
+  --ink-faint: #a59c8c;    /* tertiary text */
+
+  --primary: #15533a;      /* pine — trust, growth */
+  --primary-hover: #114730;
+  --primary-fg: #f7f5ef;
+  --primary-soft: #dde9e1; /* tinted fills */
+  --primary-soft-fg: #15533a;
+
+  --accent: #b97e1f;       /* saffron — sparing highlights */
+  --accent-soft: #f0e2c6;
+
+  --positive: #1f7a4d;     /* income / up */
+  --positive-soft: #d9ebdf;
+  --negative: #a8412a;     /* expense / down */
+  --negative-soft: #f1ddd5;
+  --warning: #b06a16;
+
+  --ring: #15533a;
+  --radius: 0.625rem;
+  --shadow-card: 0 1px 2px rgba(33, 30, 24, 0.05), 0 1px 1px rgba(33, 30, 24, 0.04);
+  --shadow-pop: 0 12px 28px -12px rgba(33, 30, 24, 0.28);
+}
+
+.dark {
+  --paper: #0e1210;
+  --surface: #161b18;
+  --surface-2: #1f2521;
+  --line: #2a322c;
+  --line-strong: #3a443c;
+  --ink: #ece8df;
+  --ink-muted: #9aa298;
+  --ink-faint: #6f786e;
+
+  --primary: #54b386;
+  --primary-hover: #67c197;
+  --primary-fg: #0e1210;
+  --primary-soft: #18271f;
+  --primary-soft-fg: #7fd0a8;
+
+  --accent: #e0a83f;
+  --accent-soft: #2c2413;
+
+  --positive: #5cbb88;
+  --positive-soft: #16271d;
+  --negative: #e08163;
+  --negative-soft: #2c1a14;
+  --warning: #d9943a;
+
+  --ring: #54b386;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-pop: 0 14px 32px -14px rgba(0, 0, 0, 0.6);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-fg: var(--primary-fg);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-soft-fg: var(--primary-soft-fg);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-negative: var(--negative);
+  --color-negative-soft: var(--negative-soft);
+  --color-warning: var(--warning);
+
+  --color-ring: var(--ring);
+
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.35rem);
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-feature-settings: "cv11", "ss01";
+  }
+  /* Ledger amounts: aligned, tabular figures. */
+  .tnum {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 26%, transparent);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+}
+
+/* Faint ruled-paper texture for the app shell — the ledger signature. */
+.ledger-rule {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 31px,
+    color-mix(in oklab, var(--line) 55%, transparent) 31px,
+    color-mix(in oklab, var(--line) 55%, transparent) 32px
+  );
+}
