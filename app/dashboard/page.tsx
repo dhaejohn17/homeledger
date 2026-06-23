@@ -70,7 +70,7 @@ export default async function DashboardPage() {
 
       <div className="grid gap-5 lg:grid-cols-3">
         {/* Cash flow */}
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 min-w-0">
           <CardHeader>
             <CardTitle>Cash flow</CardTitle>
             <span className="flex items-center gap-4 text-xs text-ink-muted">
